@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1413291607 source:f:\program\c++source file\folder_sync\main.cpp
+1413292072 source:f:\program\c++source file\folder_sync\main.cpp
 	<iostream>
 	<string>
 	<io.h>
-	<vector>
+	<list>
 	<stack>
 

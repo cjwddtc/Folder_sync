@@ -1,18 +1,18 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<string>
 #include<io.h>
-#include<vector>
+#include<list>
 #include<stack>
 
 using namespace std;
 class node;
-//Ä¿Â¼ºÍÎÄ¼ş²»Í¬µÄÊôĞÔ
+//ç›®å½•å’Œæ–‡ä»¶ä¸åŒçš„å±æ€§
 union asdf {
     long n;
-    std::vector<node*> *sonlist;
+    std::list<node*> *sonlist;
 };
 
-//Ä¿Â¼½Úµã
+//ç›®å½•èŠ‚ç‚¹
 class node{
 public:
     bool is_dir;
@@ -22,7 +22,7 @@ public:
     node(const char *name,node *father=0){
         this->name=name;
         this->is_dir=true;
-        this->value.sonlist=new std::vector<node*>();
+        this->value.sonlist=new std::list<node*>();
         this->father=father;
     }
     node(const char *name,long n,node *father=0){
@@ -32,7 +32,7 @@ public:
         this->father=father;
     }
 };
-//»ñÈ¡µ±Ç°Ä¿Â¼ÏÂµÄÍêÕûÂ·¾¶
+//è·å–å½“å‰ç›®å½•ä¸‹çš„å®Œæ•´è·¯å¾„
 string getpath(node *root){
     string fullpath="";
     node *a=root;
@@ -49,7 +49,7 @@ string getpath(node *root){
     return fullpath;
 }
 
-//ÀûÓÃµİ¹éµ÷ÓÃÒÔrootÎª¸ù½Úµã½¨Á¢¶ÔÓ¦Ä¿Â¼½á¹¹µÄÊ÷
+//åˆ©ç”¨é€’å½’è°ƒç”¨ä»¥rootä¸ºæ ¹èŠ‚ç‚¹å»ºç«‹å¯¹åº”ç›®å½•ç»“æ„çš„æ ‘
 void differToTree(node *root){
     struct _finddata_t filefind;
     string fullpath=getpath(root);
@@ -64,33 +64,34 @@ void differToTree(node *root){
             node *a=new node(filefind.name,root);
             root->value.sonlist->push_back(a);
             differToTree(a);
+            a->value.sonlist->sort([](node *a,node *b){return a->name.compare(a->name);});
         }else{
             node *a=new node(filefind.name,(long)(filefind.time_write),root);
             root->value.sonlist->push_back(a);
         }
     }
 }
-//½«ÊéĞ´ÈëÎÄ¼ş
+//å°†ä¹¦å†™å…¥æ–‡ä»¶
 void writeToFile(node *root,FILE *fp){
     if(root->is_dir){
-        //±êÖ¾±íÃ÷ÊÇÄ¿Â¼
+        //æ ‡å¿—è¡¨æ˜æ˜¯ç›®å½•
         putc(1,fp);
         fprintf(fp,"%s\n",root->name.c_str());
-        //Ğ´ÈëÄ¿Â¼°üº¬ÎÄ¼şÊıÁ¿
+        //å†™å…¥ç›®å½•åŒ…å«æ–‡ä»¶æ•°é‡
         int n=root->value.sonlist->size();
         fwrite(&n,sizeof(n),1,fp);
         for(node *a:*(root->value.sonlist)){
             writeToFile(a,fp);
         }
     }else{
-        //±êÖ¾ÊÇÎÄ¼ş
+        //æ ‡å¿—æ˜¯æ–‡ä»¶
         putc(0,fp);
         fprintf(fp,"%s\n",root->name.c_str());
-        //Ğ´ÈëĞŞ¸ÄÊ±¼ä
+        //å†™å…¥ä¿®æ”¹æ—¶é—´
         fwrite(&(root->value.n),sizeof(root->value.n),1,fp);
     }
 }
-//´ÓÎÄ¼ş¶ÁÈ¡Ä¿Â¼Ê÷
+//ä»æ–‡ä»¶è¯»å–ç›®å½•æ ‘
 void readFromFile(node *root,FILE *fp){
     int n=fgetc(fp);
     char a[1024];
@@ -109,7 +110,7 @@ void readFromFile(node *root,FILE *fp){
         new node(a,n,root);
     }
 }
-//É¾³ıÄ¿Â¼Ê÷
+//åˆ é™¤ç›®å½•æ ‘
 void delall(node *root){
     if(root->is_dir){
         for(node *a:*(root->value.sonlist)){
@@ -120,7 +121,7 @@ void delall(node *root){
         delete root;
     }
 }
-//´òÓ¡Ä¿Â¼Ê÷
+//æ‰“å°ç›®å½•æ ‘
 void print(node *root,int n=0){
     for(int i=0;i<n;i++){
         printf(" ");
@@ -138,8 +139,11 @@ void print(node *root,int n=0){
 
 int main()
 {
-    node root("D:\\ÏÂÔØ");
+    char a[1024];
+    gets(a);
+    node root(a);
     differToTree(&root);
+    root.value.sonlist->sort([](node *a,node *b){return a->name.compare(a->name);});
     print(&root);
     return 0;
 }
