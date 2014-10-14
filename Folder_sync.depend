@@ -1,5 +1,8 @@
 # depslib dependency file v1.0
-1413292072 source:f:\program\c++source file\folder_sync\main.cpp
+1413293682 source:f:\program\c++source file\folder_sync\main.cpp
+	"tree.h"
+
+1413293700 f:\program\c++source file\folder_sync\tree.h
 	<iostream>
 	<string>
 	<io.h>
