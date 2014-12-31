@@ -1,11 +1,49 @@
 # depslib dependency file v1.0
-1413293682 source:f:\program\c++source file\folder_sync\main.cpp
-	"tree.h"
+1413819924 source:f:\program\c++source file\folder_sync\main.cpp
+	"all_use.h"
 
-1413293700 f:\program\c++source file\folder_sync\tree.h
+1413474887 f:\program\c++source file\folder_sync\tree.h
+
+1413817397 source:f:\program\c++source file\folder_sync\tree.cpp
+	"all_use.h"
+
+1413556928 source:f:\program\c++source file\folder_sync\all.h
 	<iostream>
 	<string>
 	<io.h>
 	<list>
 	<stack>
+	<unordered_map>
+	<unordered_set>
+
+1413556928 f:\program\c++source file\folder_sync\all.h
+	<iostream>
+	<string>
+	<io.h>
+	<list>
+	<stack>
+	<unordered_map>
+	<unordered_set>
+
+1413464871 f:\program\c++source file\folder_sync\all_use.h
+	"all.h"
+	"tree.h"
+	"diff.h"
+	"lock.h"
+
+1413810052 f:\program\c++source file\folder_sync\diff.h
+
+1413464871 source:f:\program\c++source file\folder_sync\all_use.h
+	"all.h"
+	"tree.h"
+	"diff.h"
+	"lock.h"
+
+1413816476 source:f:\program\c++source file\folder_sync\diff.cpp
+	"all_use.h"
+
+1413819563 f:\program\c++source file\folder_sync\lock.h
+
+1413819612 source:f:\program\c++source file\folder_sync\lock.cpp
+	"all_use.h"
 
